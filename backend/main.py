@@ -24,6 +24,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+@app.get('/api')
+def read_api():
+  return {"message": "Hello World"}
+
+@app.get('/class')
+def read_api():
+  return {"class": CLASS_NAMES}
+
 @app.post("/uploadfile")
 async def create_upload_file(file: UploadFile = File(...)):
   dogBreedModel = load_learner(path='models', file='model_resnet50_08909.pkl')
