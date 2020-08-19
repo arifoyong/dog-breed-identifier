@@ -24,16 +24,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-
-@app.get('/')
-def read_root():
-  return "Hello world"
-
-@app.get('/api')
-def read_api():
-  return {"message": "Hello World"}
-
 @app.post("/uploadfile")
 async def create_upload_file(file: UploadFile = File(...)):
   dogBreedModel = load_learner(path='models', file='model_resnet50_08909.pkl')
@@ -64,7 +54,3 @@ async def create_upload_file(file: UploadFile = File(...)):
           "top10": top10}
 
   return resp
-
-@app.get('/items/{item_id}')
-def read_item(item_id: int, q: Optional[str] = None):
-  return {"item id": item_id, "q": q}

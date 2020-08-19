@@ -1,7 +1,9 @@
 import fetch from "isomorphic-unfetch";
 import { useState } from "react";
 
-const API = "http://192.168.1.123:8000/uploadfile";
+import { API } from "../config";
+
+// const API = "http://192.168.1.123:8000/uploadfile";
 
 const Main = ({ children }) => {
   const [state, setState] = useState({
@@ -23,7 +25,7 @@ const Main = ({ children }) => {
       await formData.append("file", e.target.files[0]);
       await formData.append("filename", "test");
 
-      const res = await fetch(API, {
+      const res = await fetch(`{API}uploadFile`, {
         method: "POST",
         headers: {
           Accept: "application/json",
