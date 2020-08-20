@@ -7,6 +7,7 @@ const Main = ({ children }) => {
   const [state, setState] = useState({
     top10: [],
     isLoading: false,
+    initial: true,
   });
   // const [isLoading, setIsLoading] = useState(false);
   const [imgFile, setImgFile] = useState(null);
@@ -23,7 +24,7 @@ const Main = ({ children }) => {
       await formData.append("file", e.target.files[0]);
       await formData.append("filename", "test");
 
-      const res = await fetch(`${API}uploadFile`, {
+      const res = await fetch(`${API}uploadfile`, {
         method: "POST",
         headers: {
           Accept: "application/json",
