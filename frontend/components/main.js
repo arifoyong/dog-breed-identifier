@@ -2,27 +2,25 @@ import fetch from "isomorphic-unfetch";
 import { useState } from "react";
 
 import { API } from "../config";
+import Loading from "./loading";
 
 const Main = ({ children }) => {
   const [state, setState] = useState({
     top10: [],
     isLoading: false,
-    initial: true,
   });
-  // const [isLoading, setIsLoading] = useState(false);
+
   const [imgFile, setImgFile] = useState(null);
 
   const onUpload = async (e) => {
     if (e.target.files) {
-      const top10 = [];
       const isLoading = true;
 
-      setState({ top10, isLoading });
+      setState({ ...state, isLoading });
       setImgFile(URL.createObjectURL(e.target.files[0]));
 
       const formData = new FormData();
       await formData.append("file", e.target.files[0]);
-      await formData.append("filename", "test");
 
       const res = await fetch(`${API}uploadfile`, {
         method: "POST",
@@ -53,7 +51,10 @@ const Main = ({ children }) => {
 
   const formatProbability = (prob) => {
     let num = prob * 100;
-    let displayNum = " (" + num.toFixed(2).toString() + "%)";
+    let displayNum =
+      num < 10.0
+        ? " " + num.toFixed(2).toString() + "%"
+        : num.toFixed(2).toString() + "%";
     return displayNum;
   };
 
@@ -65,56 +66,65 @@ const Main = ({ children }) => {
       const probability = item[dogName];
 
       return (
-        <p key={i} className="text-lg font-normal text-gray-600">
-          <span>{formatPrediction(dogName)}</span>
-          <span>{formatProbability(probability)}</span>
-        </p>
+        <div key={i} className="flex items-center justify-start">
+          <span className="px-3 rounded-full text-xs bg-purple-600 text-white">
+            {formatProbability(probability)}
+          </span>
+          <span className="ml-4 text-md text-gray-600 ">
+            {formatPrediction(dogName)}
+          </span>
+        </div>
       );
     });
   };
 
-  const resultCard = () => (
-    <React.Fragment>
-      <h4 className="text-xl font-bold text-gray-800 uppercase">
-        Top 3 predictions
-      </h4>
-      {showResult()}
-      <div className="flex py-2 overflow-hidden">
-        <img className="object-contain h-auto" src={imgFile} />
-      </div>
-    </React.Fragment>
-  );
+  const card = () => {
+    return (
+      <div className="flex flex-col bg-white overflow-hidden rounded-lg w-full sm:w-128 border text-gray-800 ">
+        <img
+          className="h-64 sm:h-auto object-contain"
+          src={imgFile}
+          alt="dog image"
+        />
 
-  const introCard = () => (
-    <div className="flex-1 px-2 py-2 mt-4 rounded-lg border-gray-400 border-2 bg-gray-200 w-11/12 ">
-      <div className="py-6 px-8 text-gray-600">
-        <h4 className="text-xl font-bold md:text-4xl">
-          Dog Breed Identification
-        </h4>
-        <p className="mt-4 md:text-2xl font-semibold text-gray-500">
-          Machine learning based model to predict dog breed. The model was
-          trained with{" "}
-          <a
-            className="text-blue-500 hover:text-blue-800"
-            href="https://www.kaggle.com/c/dog-breed-identification"
-          >
-            kaggle dataset
-          </a>
-          .
-        </p>
+        <div className="p-6">
+          <h4 className="font-semibold text-lg uppercase">Predictions:</h4>
+          <div className="mt-2">
+            {state.isLoading ? <Loading /> : showResult()}
+          </div>
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
+
+  const introCard = () => {
+    return (
+      <div className="bg-white rounded-lg overflow-hidden w-full sm:w-128 border text-gray-700 px-2">
+        <img className="w-auto" src={"svg/pet.svg"} alt="dog image" />
+
+        <div className="flex flex-col justify-center items-center py-6">
+          <h4 className="font-semibold text-xl">Huh... what dog is that?</h4>
+          <h4 className="text-gray-600">Get the photo & find out</h4>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <React.Fragment>
-      <div className="flex flex-col viewport100 sm:h-screen">
-        <div className="bg-gray-100 flex-1 flex flex-col items-center justify-start overflow-y-auto pt-2">
-          {state.top10.length > 0 ? resultCard() : introCard()}
+      <div className="container mx-auto flex flex-col viewport100 sm:h-screen sm:max-h-screen antialiased">
+        <div className="bg-gray-100 flex-1 flex items-center justify-center p-4 ">
+          {imgFile ? card() : introCard()}
         </div>
         <div className="bg-gray-100 flex items-center py-4 justify-center">
-          <label className="bg-gray-800 hover:bg-gray-600 text-white rounded-full px-8 py-2 md:text-2xl">
-            Get Image
+          <label className="bg-purple-600 hover:bg-gray-600 text-white rounded-full w-16 h-16 md:text-2xl items-center flex justify-center">
+            <svg viewBox="0 0 20 20" fill="currentColor" className="w-8 h-8">
+              <path
+                fillRule="evenodd"
+                d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                clipRule="evenodd"
+              />
+            </svg>
             <input onChange={onUpload} type="file" accept="image/*" hidden />
           </label>
         </div>

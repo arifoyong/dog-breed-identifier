@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Main from "../components/main2";
+import Main from "../components/main";
 
 const Index = () => {
   return (
