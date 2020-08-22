@@ -1,8 +1,12 @@
 import fetch from "isomorphic-unfetch";
 import { useState } from "react";
+import getConfig from "next/config";
 
-import { API } from "../config";
+// import { API } from "../config";
+
 import Loading from "./loading";
+const { publicRuntimeConfig } = getConfig();
+const API = publicRuntimeConfig.API;
 
 const Main = ({ children }) => {
   const [state, setState] = useState({
@@ -13,6 +17,7 @@ const Main = ({ children }) => {
   const [imgFile, setImgFile] = useState(null);
 
   const onUpload = async (e) => {
+    console.log(API);
     if (e.target.files) {
       const isLoading = true;
 

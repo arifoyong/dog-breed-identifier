@@ -7,14 +7,16 @@ from fastai.vision import *
 
 app = FastAPI()
 
-# origins = [
-#     "http://localhost",
-#     "http://localhost:3000",
-# ]
-
 origins = [
-    "*",
+    "http://localhost",
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "http://dogbreed.oyong.tk"
 ]
+
+# origins = [
+#     "*",
+# ]
 
 app.add_middleware(
     CORSMiddleware,

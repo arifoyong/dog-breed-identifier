@@ -5,5 +5,5 @@ npm-debug.log
 scripts
 *Dockerfile*
 *docker-compose*
-.env
+# .env
 .next
