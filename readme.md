@@ -5,15 +5,14 @@ This projects employed a deep learning model that has been trained to recognize 
 The model is served through REST API running on python backend.
 A simple webapp is employed as user interface.
 
-![Screenshot 01](https://github.com/arifoyong/dog-breed-identifier/tree/master/screenshots/Screenshot_01.gif)
+![Screenshot 01](https://github.com/arifoyong/dog-breed-identifier/blob/master/screenshots/Screenshot_01.gif)
 
-[Demo](http://dogbreed.oyong.tk)
-
+[Demo](http://dogbreed.oyong.tk).
 note: performance is slow as we are running on cheap web server with shared other applications
 
 ## Dataset
 
-The model was trained with dataset obtained from [Kaggle](https://www.kaggle.com/c/dog-breed-identification)
+The model was trained with dataset obtained from [Kaggle](https://www.kaggle.com/c/dog-breed-identification).
 This dataset comprises 120 breeds of dogs.
 
 ## How to use
@@ -34,8 +33,6 @@ This can be done by creating .env file in /frontend and specifying API endpoint 
 ```
 API=new_API_endpoint
 ```
-
-\*\* be careful of the "." on docker build (I often missed it)
 
 ## Technology used
 
