@@ -5,9 +5,10 @@ This projects employed a deep learning model that has been trained to recognize 
 The model is served through REST API running on python backend.
 A simple webapp is employed as user interface.
 
-![Screenshot 01](https://https://github.com/arifoyong/dog-breed-identifier/tree/master/screenshots/Screenshot_01.gif)
+![Screenshot 01](https://github.com/arifoyong/dog-breed-identifier/tree/master/screenshots/Screenshot_01.gif)
 
 [Demo](http://dogbreed.oyong.tk)
+
 note: performance is slow as we are running on cheap web server with shared other applications
 
 ## Dataset
@@ -18,7 +19,6 @@ This dataset comprises 120 breeds of dogs.
 ## How to use
 
 Clone the repository to your local folder.
-
 Type the following:
 
 ```
