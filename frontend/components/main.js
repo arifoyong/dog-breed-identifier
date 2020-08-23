@@ -1,10 +1,8 @@
 import fetch from "isomorphic-unfetch";
 import { useState } from "react";
 import getConfig from "next/config";
-
-// import { API } from "../config";
-
 import Loading from "./loading";
+
 const { publicRuntimeConfig } = getConfig();
 const API = publicRuntimeConfig.API;
 
@@ -17,11 +15,8 @@ const Main = ({ children }) => {
   const [imgFile, setImgFile] = useState(null);
 
   const onUpload = async (e) => {
-    console.log(API);
     if (e.target.files) {
       const isLoading = true;
-
-      setState({ ...state, isLoading });
       setImgFile(URL.createObjectURL(e.target.files[0]));
 
       const formData = new FormData();
@@ -36,7 +31,6 @@ const Main = ({ children }) => {
       });
 
       const data = await res.json();
-      console.log(data);
       setState({ ...state, top10: data.top10, isLoading: false });
     }
   };
