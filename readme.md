@@ -7,13 +7,16 @@ A simple webapp is employed as user interface.
 
 ![Screenshot 01](https://github.com/arifoyong/dog-breed-identifier/blob/master/screenshots/Screenshot_01.gif)
 
-[Demo](http://dogbreed.oyong.tk).
+[Demo](http://dogbreed.oyong.tk)
 note: performance is slow as we are running on cheap web server with shared other applications
 
-## Dataset
+## Dataset & Model
 
 The model was trained with dataset obtained from [Kaggle](https://www.kaggle.com/c/dog-breed-identification).
 This dataset comprises 120 breeds of dogs.
+
+Resnet50 is used as the base architecture.
+The model was developed through transfer learning from a pre-trained model trained on [ImageNet](http://www.image-net.org/) dataset. During test the model was able to achieve 89.1% accuracy.
 
 ## How to use
 
