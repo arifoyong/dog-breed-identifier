@@ -14,10 +14,6 @@ origins = [
     "http://dogbreed.oyong.tk"
 ]
 
-# origins = [
-#     "*",
-# ]
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -25,7 +21,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 @app.get('/api')
 def read_api():
@@ -55,13 +50,8 @@ async def create_upload_file(file: UploadFile = File(...)):
   top10Outputs = sortedOutputs[::-1][:10]
   top10  = [{CLASS_NAMES[i]: outputs[i].numpy().item()} for i in top10Outputs]
 
-
   resp = {'prediction': CLASS_NAMES[pred_id],
           "probability": conf_lvl,
-          'prediction2': CLASS_NAMES[top10Outputs[1]],
-          "probability2": outputs[top10Outputs[1]].numpy().item(),
-          'prediction3': CLASS_NAMES[top10Outputs[2]],
-          "probability4": outputs[top10Outputs[2]].numpy().item(),
           "top10": top10}
 
   return resp

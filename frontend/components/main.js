@@ -32,6 +32,7 @@ const Main = ({ children }) => {
 
       const data = await res.json();
       setState({ ...state, top10: data.top10, isLoading: false });
+      URL.revokeObjectURL(e.target.files[0]);
     }
   };
 
